@@ -1,6 +1,5 @@
-import { SheetType, Practitioner } from '../Data';
+import { SheetPage, ParsedType } from '../Data';
 
-type ParsedType = Practitioner;
 
 export abstract class Parser<T extends ParsedType> {
 	protected rawData: string[][];
@@ -11,9 +10,9 @@ export abstract class Parser<T extends ParsedType> {
 		return this.parsedData;
 	}
 
-	public abstract get dependencies(): SheetType[];
+	public abstract get dependencies(): SheetPage[];
 
-	public abstract get sheetType(): SheetType;
+	public abstract get sheetType(): SheetPage;
 
 	public abstract parseRow (row: string[]): T;
 

@@ -1,13 +1,13 @@
 import { Parser } from './Parser';
-import { SheetType, Indices, Practitioner } from '../Data';
+import { SheetPage, Indices, Practitioner } from '../Data';
 
 export class PractitionerParser extends Parser<Practitioner> {
-	public get sheetType(): SheetType {
-		return SheetType.PRACTITIONER;
+	public get sheetType(): SheetPage {
+		return SheetPage.Practitioner;
 	}
 
-	public get dependencies(): SheetType[] {
-		return [SheetType.PRACTITIONER];
+	public get dependencies(): SheetPage[] {
+		return [];
 	}
 
 	public parseRow(row: string[]): Practitioner {
