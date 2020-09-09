@@ -1,25 +1,10 @@
 export enum SheetPage {
 	Practitioner = 'Practitioner',
+	Patient = "Patient"
 }
 
-export const Indices = {
-	PRACTITIONER: {
-		ID: 0,
-		LICENSE_NUMBER: 1,
-		MD_USE: 2,
-		FAMILY_NAME: 3,
-		GIVEN_NAME: 4,
-		PREFIX: 5,
-		SUFFIX: 6,
-	},
-}
-
-export interface Meta{
+export interface Meta {
 	profile: string[];
-}
-
-export interface FhirData{
-	meta: Meta;	
 }
 
 export interface Coding {
@@ -28,14 +13,14 @@ export interface Coding {
 	display: string;
 }
 
-export interface PractitionerType {
+export interface Type {
 	coding: Coding[];
 	text?: string;
 }
 
 export interface Identifier {
-	use: string;
-	type: PractitionerType;
+	use?: string;
+	type: Type;
 	value: string;
 }
 
@@ -43,8 +28,8 @@ export interface Name {
 	use: string;
 	family: string;
 	given: string[];
-	prefix: string[];
-	suffix: string[];
+	prefix?: string[];
+	suffix?: string[];
 }
 export interface Practitioner {
 	resourceType: string;
@@ -54,11 +39,41 @@ export interface Practitioner {
 	name: Name[];
 }
 
+export interface Patient {
+	resourceType: string;
+	id: string;
+	meta: Meta;
+	extension: Extension[];
+	identifier: Identifier[];
+	active: boolean;
+	name: Name[];
+	birthDate: Date;
+	gender: string;
+	generalPractitioner: Reference[];
+	managingOrganization: Reference;
+}
 
-export type ParsedType = Practitioner;
+export interface Extension {
+	url: string;
+	valueCoding?: Coding;
+	valueReference?: Reference;
+	valueBoolean?: boolean;
+}
+
+export interface Coding {
+	system: string;
+	code: string;
+	display: string;
+}
+
+export interface Reference {
+	reference: string;
+}
+
+export type ParsedType = Practitioner | Patient;
 
 export interface ParsedData {
 	page: SheetPage;
 	data: ParsedType[];
-	dependeciess: SheetPage[];
+	dependencies: SheetPage[];
 }

@@ -4,6 +4,7 @@ import {PractitionerParser} from './parsers/PractitionerParser';
 import { Parser } from './parsers/Parser';
 import { SheetPage, ParsedType, ParsedData } from './Data';
 import { GOOGLE_SHEET_ID, GOOGLE_SPREADSHEETS_RAW_DATA_KEY } from './Constants';
+import { PatientParser } from './parsers/PatientParser';
 
 type ParsingEntry = {
 	parser: Parser<ParsedType>,
@@ -28,7 +29,7 @@ export class GoogleSheetLoader{
 			const entry = this.parsers[page];
 			data.push({
 				data: entry.parser.parsed,
-				dependeciess: entry.parser.dependencies,
+				dependencies: entry.parser.dependencies,
 				page
 			});
 		}
@@ -44,7 +45,6 @@ export class GoogleSheetLoader{
 
 		for (let i = 0; i < doc.sheetCount; i += 1) {
 			const sheet = doc.sheetsByIndex[i];
-			const title = sheet.title;
 
 			const type: SheetPage = SheetPage[sheet.title as keyof typeof SheetPage];
 
@@ -74,6 +74,7 @@ export class GoogleSheetLoader{
 	
 	private static loadParsers(): void {
 		this.parsers[SheetPage.Practitioner] = {parser: new PractitionerParser()};
+		this.parsers[SheetPage.Patient] = {parser: new PatientParser()};
 	}
 
 	private static extractRawData(row: GoogleSpreadsheetRow): string[]{ return row[GOOGLE_SPREADSHEETS_RAW_DATA_KEY]; }

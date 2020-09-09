@@ -34,11 +34,11 @@ export class Network{
 		}
 
 		// Upload the dependencies first
-		data.parsed.dependeciess.forEach(dependency =>{
+		data.parsed.dependencies.forEach(dependency =>{
 			this.uploadEntry(dependency);
 		})
 
-		console.log(data.parsed.data);
+		console.log(data.parsed.page);
 		data.uploaded = true;
 	}
 }
