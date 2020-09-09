@@ -1,5 +1,5 @@
-export enum SheetType {
-	PRACTITIONER = 'PRACTITIONER',
+export enum SheetPage {
+	Practitioner = 'Practitioner',
 }
 
 export const Indices = {
@@ -15,41 +15,50 @@ export const Indices = {
 }
 
 export interface Meta{
-		profile: string[];
-	}
+	profile: string[];
+}
 
 export interface FhirData{
-		meta: Meta;
-	}
+	meta: Meta;	
+}
 
 export interface Coding {
-		code: string;
-		system: string;
-		display: string;
-	}
+	code: string;
+	system: string;
+	display: string;
+}
 
 export interface PractitionerType {
-		coding: Coding[];
-		text?: string;
-	}
+	coding: Coding[];
+	text?: string;
+}
 
 export interface Identifier {
-		use: string;
-		type: PractitionerType;
-		value: string;
-	}
+	use: string;
+	type: PractitionerType;
+	value: string;
+}
 
 export interface Name {
-		use: string;
-		family: string;
-		given: string[];
-		prefix: string[];
-		suffix: string[];
-	}
+	use: string;
+	family: string;
+	given: string[];
+	prefix: string[];
+	suffix: string[];
+}
 export interface Practitioner {
-		resourceType: string;
-		id: string;
-		meta: Meta;
-		identifier: Identifier[];
-		name: Name[];
-	}
+	resourceType: string;
+	id: string;
+	meta: Meta;
+	identifier: Identifier[];
+	name: Name[];
+}
+
+
+export type ParsedType = Practitioner;
+
+export interface ParsedData {
+	page: SheetPage;
+	data: ParsedType[];
+	dependeciess: SheetPage[];
+}
