@@ -7,6 +7,7 @@ import { GOOGLE_SHEET_ID, GOOGLE_SPREADSHEETS_RAW_DATA_KEY } from './Constants';
 import { PatientParser } from './parsers/PatientParser';
 import { ClinicalImpressionParser } from './parsers/ClinicalImpressionParser';
 import { FamilyMemberHistoryParser } from './parsers/FamilyMemberHistory';
+import {ServiceRequestParser} from "./parsers/ServiceRequestParser";
 
 type ParsingEntry = {
 	parser: Parser<ParsedType>,
@@ -70,12 +71,13 @@ export class GoogleSheetLoader {
 			entry.parser.parse(data.map(this.extractRawData));
 		}
 	}
-	
+
 	private static loadParsers(): void {
 		this.parsers[SheetPage.Practitioner] = {parser: new PractitionerParser()};
 		this.parsers[SheetPage.Patient] = {parser: new PatientParser()};
 		this.parsers[SheetPage.ClinicalImpression] = {parser: new ClinicalImpressionParser()};
 		this.parsers[SheetPage.FMH] = {parser: new FamilyMemberHistoryParser()};
+		this.parsers[SheetPage.ServiceRequest] = {parser: new ServiceRequestParser()};
 	}
 
 	private static extractRawData(row: GoogleSpreadsheetRow): string[] { return row[GOOGLE_SPREADSHEETS_RAW_DATA_KEY]; }
