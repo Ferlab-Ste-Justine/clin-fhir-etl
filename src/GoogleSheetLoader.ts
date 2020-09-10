@@ -1,9 +1,8 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetRow } from 'google-spreadsheet';
-import Credentials from './credentials.json';
 import {PractitionerParser} from './parsers/PractitionerParser';
 import { Parser } from './parsers/Parser';
 import { SheetPage, ParsedType, ParsedData } from './Data';
-import { GOOGLE_SHEET_ID, GOOGLE_SPREADSHEETS_RAW_DATA_KEY } from './Constants';
+import { GOOGLE_SHEET_ID, GOOGLE_SPREADSHEETS_RAW_DATA_KEY, GOOGLE_API_KEY } from './Constants';
 import { PatientParser } from './parsers/PatientParser';
 import { ClinicalImpressionParser } from './parsers/ClinicalImpressionParser';
 import { FamilyMemberHistoryParser } from './parsers/FamilyMemberHistory';
@@ -20,10 +19,15 @@ export class GoogleSheetLoader {
 	private static readonly parsers: {[key in SheetPage]?: ParsingEntry} = {};
 
 	public static async load() : Promise<ParsedData[]> {
-		GoogleSheetLoader.loadParsers();
-		await GoogleSheetLoader.extractData();
-		await GoogleSheetLoader.parse();
-		return GoogleSheetLoader.parsedData;
+		try{
+			GoogleSheetLoader.loadParsers();
+			await GoogleSheetLoader.extractData();
+			await GoogleSheetLoader.parse();
+			return GoogleSheetLoader.parsedData;
+		}catch(e){
+			console.error(e);
+			throw new Error(`Failed to load data from Google Sheet: ${e}`);
+		}
 	}
 
 	private static get parsedData() {
@@ -42,7 +46,8 @@ export class GoogleSheetLoader {
 
 	private static async extractData() {
 		const doc = new GoogleSpreadsheet(GOOGLE_SHEET_ID);
-		await doc.useServiceAccountAuth(Credentials);
+		// await doc.useServiceAccountAuth(Credentials);
+		await doc.useApiKey(GOOGLE_API_KEY);
 		await doc.loadInfo();
 
 		for (let i = 0; i < doc.sheetCount; i += 1) {

@@ -1,4 +1,6 @@
-export const GOOGLE_SHEET_ID = '1-4yrkDpXco5-PlFoPAd_wrufa4WZShEtosfspgy-jvU';
+export const FHIR_SERVER_HOST = process.env.FHIR_SERVER_HOST;
+export const GOOGLE_SHEET_ID = process.env.GOOGLE_SHEET_ID;
+export const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY;
 export const GOOGLE_SPREADSHEETS_RAW_DATA_KEY = '_rawData';
 
 export const Indices = {
