@@ -20,6 +20,12 @@ export abstract class Parser<T extends ParsedType> {
 		this.rawData = data;
 		this.parsedData = [];
 
-		this.parsedData = this.rawData.map(this.parseRow);
+		const length = this.rawData.length;
+		if(length === 0){
+			return;
+		}
+
+		const isClean = (row: string[]) => row.length === length;
+		this.parsedData = this.rawData.filter(isClean).map(this.parseRow);
 	}
 }

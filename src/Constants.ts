@@ -61,5 +61,12 @@ export const Indices = {
 		AUTHORED_ON: 5,
 		CODE_TEXT: 6,
 		REQUESTER: 7,
+	},
+	ORGANIZATION: {
+		ID: 0,
+		TYPE_CODE: 1,
+		TYPE_DISPLAY: 2,
+		NAME: 3,
+		ALIAS: 4,
 	}
 };

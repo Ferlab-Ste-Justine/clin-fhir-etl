@@ -3,12 +3,13 @@ export enum SheetPage {
 	Patient = "Patient",
 	ClinicalImpression = "ClinicalImpression",
 	FMH = "FMH",
-	ServiceRequest = "ServiceRequest"
+	ServiceRequest = "ServiceRequest",
+	Organisation = "Organisation"
 }
 
-export type ResourceType = "Practitioner" | "Patient" | "ClinicalImpression" | "FamilyMemberHistory" | "ServiceRequest";
+export type ResourceType = "Practitioner" | "Patient" | "ClinicalImpression" | "FamilyMemberHistory" | "ServiceRequest" | "Organization";
 
-export type ParsedType = Practitioner | Patient | ClinicalImpression | FamilyMemberHistory | ServiceRequest;
+export type ParsedType = Practitioner | Patient | ClinicalImpression | FamilyMemberHistory | ServiceRequest | Organization;
 
 export interface Meta {
 	profile: string[];
@@ -79,72 +80,81 @@ export interface ParsedData {
 }
 
 export interface ClinicalImpression {
-    resourceType:  ResourceType;
-    id:            string;
-    meta:          Meta;
-    extension:     Extension[];
-    status:        string;
-    subject:       Assessor;
-    date:          Date;
-    assessor:      Assessor;
-    investigation: Investigation[];
+	resourceType: ResourceType;
+	id: string;
+	meta: Meta;
+	extension: Extension[];
+	status: string;
+	subject: Assessor;
+	date: Date;
+	assessor: Assessor;
+	investigation: Investigation[];
 }
 
 export interface Assessor {
-    reference: string;
+	reference: string;
 }
 
 export interface ValueAge {
-    value:  number;
-    unit:   string;
-    system: string;
-    code:   string;
+	value: number;
+	unit: string;
+	system: string;
+	code: string;
 }
 
 export interface Investigation {
-    code: Code;
-    item: Assessor[];
+	code: Code;
+	item: Assessor[];
 }
 
 export interface Code {
 	coding?: Coding[];
-    text?: string;
+	text?: string;
 }
 
 export interface FamilyMemberHistory {
-    resourceType: ResourceType;
-    id:           string;
-    meta:         Meta;
-    status:       string;
-    patient:      Reference;
-    relationship: Relationship;
-    note:         Note[];
+	resourceType: ResourceType;
+	id: string;
+	meta: Meta;
+	status: string;
+	patient: Reference;
+	relationship: Relationship;
+	note: Note[];
 }
 
 
 export interface Note {
-    text: string;
+	text: string;
 }
 
 export interface Relationship {
-    coding: Coding[];
+	coding: Coding[];
 }
 
 export interface ServiceRequest {
 	resourceType: ResourceType;
-	id:           string;
-	meta:         Meta;
-	extension:    Extension[];
-	status:       string;
-	intent:       string;
-	authoredOn:   Date;
-	category:     Category[];
-	priority:     string;
-	code:         Code;
-	requester:    Reference;
-	subject:      Reference;
+	id: string;
+	meta: Meta;
+	extension: Extension[];
+	status: string;
+	intent: string;
+	authoredOn: Date;
+	category: Category[];
+	priority: string;
+	code: Code;
+	requester: Reference;
+	subject: Reference;
 }
 
 export interface Category {
 	text: string;
+}
+
+export interface Organization {
+	resourceType: ResourceType;
+	id: string;
+	meta: Meta;
+	name: string;
+	alias: string[];
+	type: Coding
 }

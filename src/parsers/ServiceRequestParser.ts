@@ -45,13 +45,7 @@ export class ServiceRequestParser extends Parser<ServiceRequest> {
 			],
 			priority: "routine",
 			code: {
-				coding: [
-					{
-						system: "http://fhir.cqgc.ferlab.bio/CodeSystem/service-request-code",
-						code: codeText,
-						display: "Whole Genome Sequencing"
-					}
-				],
+				text: codeText
 			},
 			requester: {
 				reference: requester
