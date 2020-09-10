@@ -103,6 +103,6 @@ export class PatientParser extends Parser<Patient>{
 				given: [givenName],
 				use: nameUse,
 			}],
-		}
+		};
 	}
 }

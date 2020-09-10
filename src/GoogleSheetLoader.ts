@@ -5,6 +5,7 @@ import { Parser } from './parsers/Parser';
 import { SheetPage, ParsedType, ParsedData } from './Data';
 import { GOOGLE_SHEET_ID, GOOGLE_SPREADSHEETS_RAW_DATA_KEY } from './Constants';
 import { PatientParser } from './parsers/PatientParser';
+import { ClinicalImpressionParser } from './parsers/ClinicalImpressionParser';
 
 type ParsingEntry = {
 	parser: Parser<ParsedType>,
@@ -12,10 +13,10 @@ type ParsingEntry = {
 }
 
 
-export class GoogleSheetLoader{
+export class GoogleSheetLoader {
 	private static readonly parsers: {[key in SheetPage]?: ParsingEntry} = {};
 
-	public static async load() : Promise<ParsedData[]>{
+	public static async load() : Promise<ParsedData[]> {
 		GoogleSheetLoader.loadParsers();
 		await GoogleSheetLoader.extractData();
 		await GoogleSheetLoader.parse();
@@ -24,7 +25,7 @@ export class GoogleSheetLoader{
 
 	private static get parsedData() {
 		const data: ParsedData[] = [];
-		for(const key in this.parsers){
+		for(const key in this.parsers) {
 			const page = SheetPage[key as keyof typeof SheetPage];
 			const entry = this.parsers[page];
 			data.push({
@@ -56,17 +57,17 @@ export class GoogleSheetLoader{
 
 	private static async parse() {
 		const processEntries: Promise<void>[] = [];
-		for(const key in this.parsers){
+		for(const key in this.parsers) {
 			const entry = this.parsers[SheetPage[key as keyof typeof SheetPage]];
-			if(entry != null){
+			if(entry != null) {
 				processEntries.push(this.executeParser(entry));
 			}
 		}
 		await Promise.all(processEntries);
 	}
 
-	private static async executeParser(entry: ParsingEntry): Promise<void>{
-		if(entry.data != null){
+	private static async executeParser(entry: ParsingEntry): Promise<void> {
+		if(entry.data != null) {
 			const data = (await entry.data);
 			entry.parser.parse(data.map(this.extractRawData));
 		}
@@ -75,7 +76,8 @@ export class GoogleSheetLoader{
 	private static loadParsers(): void {
 		this.parsers[SheetPage.Practitioner] = {parser: new PractitionerParser()};
 		this.parsers[SheetPage.Patient] = {parser: new PatientParser()};
+		this.parsers[SheetPage.ClinicalImpression] = {parser: new ClinicalImpressionParser()};
 	}
 
-	private static extractRawData(row: GoogleSpreadsheetRow): string[]{ return row[GOOGLE_SPREADSHEETS_RAW_DATA_KEY]; }
+	private static extractRawData(row: GoogleSpreadsheetRow): string[] { return row[GOOGLE_SPREADSHEETS_RAW_DATA_KEY]; }
 }

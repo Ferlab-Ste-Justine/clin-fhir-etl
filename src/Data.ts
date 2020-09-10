@@ -1,7 +1,10 @@
 export enum SheetPage {
 	Practitioner = 'Practitioner',
-	Patient = "Patient"
+	Patient = "Patient",
+	ClinicalImpression = "ClinicalImpression"
 }
+
+export type ResourceType = "Practitioner" | "Patient" | "ClinicalImpression";
 
 export interface Meta {
 	profile: string[];
@@ -32,7 +35,7 @@ export interface Name {
 	suffix?: string[];
 }
 export interface Practitioner {
-	resourceType: string;
+	resourceType: ResourceType;
 	id: string;
 	meta: Meta;
 	identifier: Identifier[];
@@ -40,7 +43,7 @@ export interface Practitioner {
 }
 
 export interface Patient {
-	resourceType: string;
+	resourceType: ResourceType;
 	id: string;
 	meta: Meta;
 	extension: Extension[];
@@ -58,6 +61,7 @@ export interface Extension {
 	valueCoding?: Coding;
 	valueReference?: Reference;
 	valueBoolean?: boolean;
+	valueAge?: ValueAge;
 }
 
 export interface Coding {
@@ -70,10 +74,42 @@ export interface Reference {
 	reference: string;
 }
 
-export type ParsedType = Practitioner | Patient;
+export type ParsedType = Practitioner | Patient | ClinicalImpression;
 
 export interface ParsedData {
 	page: SheetPage;
 	data: ParsedType[];
 	dependencies: SheetPage[];
+}
+
+export interface ClinicalImpression {
+    resourceType:  ResourceType;
+    id:            string;
+    meta:          Meta;
+    extension:     Extension[];
+    status:        string;
+    subject:       Assessor;
+    date:          Date;
+    assessor:      Assessor;
+    investigation: Investigation[];
+}
+
+export interface Assessor {
+    reference: string;
+}
+
+export interface ValueAge {
+    value:  number;
+    unit:   string;
+    system: string;
+    code:   string;
+}
+
+export interface Investigation {
+    code: Code;
+    item: Assessor[];
+}
+
+export interface Code {
+    text: string;
 }

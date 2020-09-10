@@ -34,9 +34,7 @@ export class Network{
 		}
 
 		// Upload the dependencies first
-		data.parsed.dependencies.forEach(dependency =>{
-			this.uploadEntry(dependency);
-		})
+		data.parsed.dependencies.forEach(dependency => this.uploadEntry(dependency));
 
 		console.log(data.parsed.page);
 		data.uploaded = true;
