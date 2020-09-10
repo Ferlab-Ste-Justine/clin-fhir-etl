@@ -4,12 +4,13 @@ export enum SheetPage {
 	ClinicalImpression = "ClinicalImpression",
 	FMH = "FMH",
 	ServiceRequest = "ServiceRequest",
-	Organisation = "Organisation"
+	Organisation = "Organisation",
+	PractitionerRole = "PractitionerRole"
 }
 
-export type ResourceType = "Practitioner" | "Patient" | "ClinicalImpression" | "FamilyMemberHistory" | "ServiceRequest" | "Organization";
+export type ResourceType = "Practitioner" | "Patient" | "ClinicalImpression" | "FamilyMemberHistory" | "ServiceRequest" | "Organization" | "PractitionerRole";
 
-export type ParsedType = Practitioner | Patient | ClinicalImpression | FamilyMemberHistory | ServiceRequest | Organization;
+export type ParsedType = Practitioner | Patient | ClinicalImpression | FamilyMemberHistory | ServiceRequest | Organization | PractitionerRole;
 
 export interface Meta {
 	profile: string[];
@@ -157,4 +158,22 @@ export interface Organization {
 	name: string;
 	alias: string[];
 	type: Coding
+}
+
+export interface PractitionerRole {
+    resourceType: ResourceType;
+    id:           string;
+    meta:         Meta;
+    active:       boolean;
+    practitioner: Reference;
+    organization: Reference;
+    telecom:      Telecom[];
+    code:         Code[];
+}
+
+export interface Telecom {
+    system: string;
+    value:  string;
+    use:    string;
+    rank?:  number;
 }

@@ -9,6 +9,7 @@ import { ClinicalImpressionParser } from './parsers/ClinicalImpressionParser';
 import { FamilyMemberHistoryParser } from './parsers/FamilyMemberHistory';
 import {ServiceRequestParser} from "./parsers/ServiceRequestParser";
 import { OrganizationParser } from './parsers/OgranizationParser';
+import { PractitionerRoleParser } from './parsers/PractitionerRoleParser';
 
 type ParsingEntry = {
 	parser: Parser<ParsedType>,
@@ -80,6 +81,7 @@ export class GoogleSheetLoader {
 		this.parsers[SheetPage.FMH] = {parser: new FamilyMemberHistoryParser()};
 		this.parsers[SheetPage.ServiceRequest] = {parser: new ServiceRequestParser()};
 		this.parsers[SheetPage.Organisation] = {parser: new OrganizationParser()};
+		this.parsers[SheetPage.PractitionerRole] = {parser: new PractitionerRoleParser()};
 	}
 
 	private static extractRawData(row: GoogleSpreadsheetRow): string[] { return row[GOOGLE_SPREADSHEETS_RAW_DATA_KEY]; }
