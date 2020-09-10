@@ -42,4 +42,4 @@ You need a Google Developer account to use this application.
     ```
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+APACHE V2
