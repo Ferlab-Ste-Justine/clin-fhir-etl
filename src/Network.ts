@@ -1,4 +1,6 @@
 import { ParsedData, SheetPage } from "./Data";
+import { Api } from "./Api";
+import { AppLogger } from "./Logger";
 
 type NetworkData = {
 	parsed: ParsedData;
@@ -15,14 +17,14 @@ export class Network{
 		});
 	}
 
-	public upload(): void {
+	public async upload(): Promise<void> {
 		for(const key in this.networkData){
 			const page = SheetPage[key as keyof typeof SheetPage];
-			this.uploadEntry(page);
+			await this.uploadEntry(page);
 		}
 	}	
 
-	private uploadEntry(page: SheetPage){
+	private async uploadEntry(page: SheetPage){
 		const data = this.networkData[page];
 
 		if(data == null){
@@ -34,9 +36,9 @@ export class Network{
 		}
 
 		// Upload the dependencies first
-		data.parsed.dependencies.forEach(dependency => this.uploadEntry(dependency));
-
-		console.log(data.parsed.page);
+		data.parsed.dependencies.forEach(async dependency => await this.uploadEntry(dependency));
+		AppLogger.of("net").warn(`Processing ${page}`);
+		await Api.upload(data.parsed.data);
 		data.uploaded = true;
 	}
 }
