@@ -1,8 +1,6 @@
 export const GOOGLE_SHEET_ID = '1-4yrkDpXco5-PlFoPAd_wrufa4WZShEtosfspgy-jvU';
 export const GOOGLE_SPREADSHEETS_RAW_DATA_KEY = '_rawData';
 
-
-
 export const Indices = {
 	PRACTITIONER: {
 		ID: 0,
@@ -13,7 +11,7 @@ export const Indices = {
 		PREFIX: 5,
 		SUFFIX: 6,
 	},
-	PATIENT:{
+	PATIENT: {
 		ID: 0,
 		ETHNICITY_CODE: 1,
 		ETHNICITY_DISPLAY: 2,
@@ -31,7 +29,7 @@ export const Indices = {
 		GENERAL_PRACTITIONER: 14,
 		MANAGING_ORGANISATION: 15,
 	},
-	CLINICAL_IMPRESSION:{
+	CLINICAL_IMPRESSION: {
 		ID: 0,
 		SUBJECT: 1,
 		STATUS: 2,
@@ -46,5 +44,12 @@ export const Indices = {
 		INVESTIGATION_ITEM_REFERENCE_PHENO_D: 11,
 		INVESTIGATION_ITEM_REFERENCE_FMH: 12,
 		VALUE_AGE: 13,
+	},
+	FMH: {
+		ID: 0,
+		PATIENT: 1,
+		RELATIONSHIP_CODE: 2,
+		RELATIONSHIP_DISPLAY: 3,
+		NOTE: 4,
 	}
 };

@@ -6,12 +6,12 @@ import { SheetPage, ParsedType, ParsedData } from './Data';
 import { GOOGLE_SHEET_ID, GOOGLE_SPREADSHEETS_RAW_DATA_KEY } from './Constants';
 import { PatientParser } from './parsers/PatientParser';
 import { ClinicalImpressionParser } from './parsers/ClinicalImpressionParser';
+import { FamilyMemberHistoryParser } from './parsers/FamilyMemberHistory';
 
 type ParsingEntry = {
 	parser: Parser<ParsedType>,
 	data?: Promise<GoogleSpreadsheetRow[]>
 }
-
 
 export class GoogleSheetLoader {
 	private static readonly parsers: {[key in SheetPage]?: ParsingEntry} = {};
@@ -39,10 +39,8 @@ export class GoogleSheetLoader {
 
 	private static async extractData() {
 		const doc = new GoogleSpreadsheet(GOOGLE_SHEET_ID);
-		doc.useServiceAccountAuth(Credentials);
-
+		await doc.useServiceAccountAuth(Credentials);
 		await doc.loadInfo();
-		console.log(doc.title);
 
 		for (let i = 0; i < doc.sheetCount; i += 1) {
 			const sheet = doc.sheetsByIndex[i];
@@ -77,6 +75,7 @@ export class GoogleSheetLoader {
 		this.parsers[SheetPage.Practitioner] = {parser: new PractitionerParser()};
 		this.parsers[SheetPage.Patient] = {parser: new PatientParser()};
 		this.parsers[SheetPage.ClinicalImpression] = {parser: new ClinicalImpressionParser()};
+		this.parsers[SheetPage.FMH] = {parser: new FamilyMemberHistoryParser()};
 	}
 
 	private static extractRawData(row: GoogleSpreadsheetRow): string[] { return row[GOOGLE_SPREADSHEETS_RAW_DATA_KEY]; }
