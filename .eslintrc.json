@@ -20,7 +20,7 @@
         "no-console": "off",
         "consistent-return":"off",
         "no-tabs": "off",
-        "indent": ["error", "tab"],
+        "indent": ["error", 4],
         "semi": "error",
         "space-infix-ops": "error",
         "space-unary-ops": "error",
