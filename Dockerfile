@@ -4,3 +4,5 @@ ADD . /code
 WORKDIR /code
 
 RUN yarn install --no-lockfile
+
+CMD [ "yarn", "start" ]
