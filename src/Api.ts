@@ -4,28 +4,28 @@ import { FHIR_SERVER_HOST } from './Constants';
 import { AppLogger } from './Logger';
 
 enum Method {
-GET ,
-POST ,
-DELETE,
-PUT
+    GET ,
+    POST ,
+    DELETE,
+    PUT
 }
 
 type BatchRequest = {
-method: string;
-url: string;
+    method: string;
+    url: string;
 }
 
 type BatchEntry = {
-request: BatchRequest;
-resource?: ParsedType;
+    request: BatchRequest;
+    resource?: ParsedType;
 }
 
 
 type BatchBundle = {
-resourceType: "Bundle",
-id: "CLIN_FHIR_ETL",
-type: "batch",
-entry: BatchEntry[];
+    resourceType: "Bundle",
+    id: "CLIN_FHIR_ETL",
+    type: "batch",
+    entry: BatchEntry[];
 }
 
 class Batch {
