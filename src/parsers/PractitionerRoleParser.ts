@@ -2,7 +2,7 @@ import { Parser } from "./Parser";
 import { PractitionerRole, SheetPage } from "../Data";
 import { Indices } from "../Constants";
 
-export class PractitionerRoleParser extends Parser<PractitionerRole>{
+export class PractitionerRoleParser extends Parser<PractitionerRole> {
     public get dependencies(): SheetPage[] {
         return [SheetPage.Practitioner, SheetPage.Organisation];
     }

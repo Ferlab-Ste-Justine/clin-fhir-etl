@@ -7,7 +7,7 @@ interface Logger {
 }
 
 class ConsoleLogger implements Logger {
-    constructor(private readonly namespace: string){}
+    constructor(private readonly namespace: string) {}
 
     info(message: string): void {
         console.log(`${chalk.blue(chalk.bold(this.namespace))} ${chalk.blue(message)}`); 
@@ -39,7 +39,7 @@ export class AppLogger {
         types.forEach(entry => {
             const logger = this.createLogger(entry);
             this.loggers[entry.name] = logger;
-            if(entry.alias != null){
+            if(entry.alias != null) {
                 this.loggers[entry.alias] = logger;
             }
         });

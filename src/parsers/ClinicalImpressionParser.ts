@@ -3,7 +3,7 @@ import { ClinicalImpression, SheetPage } from "../Data";
 import { Indices } from "../Constants";
 
 
-export class ClinicalImpressionParser extends Parser<ClinicalImpression>{
+export class ClinicalImpressionParser extends Parser<ClinicalImpression> {
     public get dependencies(): SheetPage[] {
         return [SheetPage.Practitioner, SheetPage.Patient];
     }

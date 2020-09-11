@@ -19,12 +19,12 @@ export class GoogleSheetLoader {
     private static readonly parsers: {[key in SheetPage]?: ParsingEntry} = {};
 
     public static async load() : Promise<ParsedData[]> {
-        try{
+        try {
             GoogleSheetLoader.loadParsers();
             await GoogleSheetLoader.extractData();
             await GoogleSheetLoader.parse();
             return GoogleSheetLoader.parsedData;
-        }catch(e){
+        } catch(e) {
             console.error(e);
             throw new Error(`Failed to load data from Google Sheet: ${e}`);
         }

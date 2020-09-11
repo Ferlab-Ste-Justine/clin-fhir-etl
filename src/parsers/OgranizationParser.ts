@@ -3,7 +3,7 @@ import { Organization, SheetPage } from "../Data";
 import { Indices } from "../Constants";
 
 
-export class OrganizationParser extends Parser<Organization>{
+export class OrganizationParser extends Parser<Organization> {
     public get dependencies(): SheetPage[] {
         return [];
     }

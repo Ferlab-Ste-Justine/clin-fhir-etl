@@ -7,7 +7,7 @@ type NetworkData = {
     uploaded: boolean;
 }
 
-export class Network{
+export class Network {
     private readonly networkData: {[key in SheetPage]?: NetworkData} = {};
 
     constructor(private readonly parsedDatas: ParsedData[]) {
@@ -18,20 +18,20 @@ export class Network{
     }
 
     public async upload(): Promise<void> {
-        for(const key in this.networkData){
+        for(const key in this.networkData) {
             const page = SheetPage[key as keyof typeof SheetPage];
             await this.uploadEntry(page);
         }
     }	
 
-    private async uploadEntry(page: SheetPage){
+    private async uploadEntry(page: SheetPage) {
         const data = this.networkData[page];
 
-        if(data == null){
+        if(data == null) {
             throw new Error(`Cannot find parsed data for [${page}]`);
         }
 
-        if(data.uploaded){
+        if(data.uploaded) {
             return;
         }
 

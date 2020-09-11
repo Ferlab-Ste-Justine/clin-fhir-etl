@@ -21,7 +21,7 @@ export abstract class Parser<T extends ParsedType> {
         this.parsedData = [];
 
         const length = this.rawData.length;
-        if(length === 0){
+        if(length === 0) {
             return;
         }
         this.parsedData = this.rawData.map(this.parseRow);

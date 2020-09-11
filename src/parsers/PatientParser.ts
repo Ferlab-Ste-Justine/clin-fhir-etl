@@ -2,7 +2,7 @@ import { Parser } from "./Parser";
 import { Patient, SheetPage } from "../Data";
 import { Indices } from '../Constants';
 
-export class PatientParser extends Parser<Patient>{
+export class PatientParser extends Parser<Patient> {
     public get dependencies(): import("../Data").SheetPage[] {
         return [SheetPage.Practitioner];
     }

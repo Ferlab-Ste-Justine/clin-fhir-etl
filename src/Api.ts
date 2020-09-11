@@ -29,13 +29,13 @@ type BatchBundle = {
 }
 
 class Batch {
-    public static bundle(method: Method, resources: ParsedType[]): BatchBundle{ 
+    public static bundle(method: Method, resources: ParsedType[]): BatchBundle { 
         return  {
             resourceType: "Bundle",
             id: "CLIN_FHIR_ETL",
             type: "batch",
             entry: resources.map(resource => {
-                if(method === Method.DELETE){
+                if(method === Method.DELETE) {
                     return {
                         request:{
                             method: Method[method].toString(),
@@ -55,8 +55,8 @@ class Batch {
     }
 }
 
-export class Api{
-    public static async upload(data: ParsedType[]): Promise<void>{
+export class Api {
+    public static async upload(data: ParsedType[]): Promise<void> {
     // Create a batch to delete all the FHIR entries with the same IDs
         AppLogger.of("api").info("Generating bundles.");
         const batchDelete = Batch.bundle(Method.DELETE, data);
