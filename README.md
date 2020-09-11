@@ -19,14 +19,17 @@ You need a Google Developer account to use this application.
 1. Clone this repository
 
     ```bash
-    git clone repo
+    git clone git@github.com:Ferlab-Ste-Justine/clin-fhir-etl.git
     ```
 2. Install the dependencies (with `yarn` or `npm`)
     ```bash
     yarn
     ```
-3. Download th
-3. Create a `.env` file at the root of the project
+    or
+    ```
+    npm install
+    ```
+3. Create an `.env` file at the root of the project
     ```bash
     touch .env
     ```
@@ -39,6 +42,10 @@ You need a Google Developer account to use this application.
 5. Start the application with 
     ```
     yarn start
+    ```
+    or
+    ```
+    npm run start
     ```
 
 ## License
