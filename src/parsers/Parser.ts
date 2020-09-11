@@ -1,4 +1,4 @@
-import { SheetPage, ParsedType } from '../Data';
+import { SheetPage, ParsedType } from '../data/Data';
 
 
 export abstract class Parser<T extends ParsedType> {

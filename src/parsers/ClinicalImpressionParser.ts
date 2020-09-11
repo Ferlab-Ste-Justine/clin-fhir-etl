@@ -1,6 +1,6 @@
 import { Parser } from "./Parser";
-import { ClinicalImpression, SheetPage } from "../Data";
-import { Indices } from "../Constants";
+import { ClinicalImpression, SheetPage } from "../data/Data";
+import { Indices } from "../data/Constants";
 
 
 export class ClinicalImpressionParser extends Parser<ClinicalImpression> {

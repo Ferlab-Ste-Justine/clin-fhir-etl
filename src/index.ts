@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import {GoogleSheetLoader} from "./GoogleSheetLoader";
-import {Network} from "./Network";
-import { AppLogger, initLoggers } from './Logger';
-import { FHIR_SERVER_HOST } from './Constants';
+import {GoogleSheetLoader} from "./loader/GoogleSheetLoader";
+import {Network} from "./network/Network";
+import { AppLogger, initLoggers } from './log/Logger';
+import { FHIR_SERVER_HOST } from './data/Constants';
 
 const start = async () => {
     try {

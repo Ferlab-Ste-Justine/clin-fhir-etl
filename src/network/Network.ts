@@ -1,6 +1,6 @@
-import { ParsedData, SheetPage } from "./Data";
+import { ParsedData, SheetPage } from "../data/Data";
 import { Api } from "./Api";
-import { AppLogger } from "./Logger";
+import { AppLogger } from "../log/Logger";
 
 type NetworkData = {
     parsed: ParsedData;

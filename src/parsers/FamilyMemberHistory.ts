@@ -1,6 +1,6 @@
 import {Parser} from "./Parser";
-import {FamilyMemberHistory, SheetPage} from "../Data";
-import {Indices} from "../Constants";
+import {FamilyMemberHistory, SheetPage} from "../data/Data";
+import {Indices} from "../data/Constants";
 
 
 export class FamilyMemberHistoryParser extends Parser<FamilyMemberHistory> {

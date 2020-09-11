@@ -1,6 +1,6 @@
 import { Parser } from "./Parser";
-import { Organization, SheetPage } from "../Data";
-import { Indices } from "../Constants";
+import { Organization, SheetPage } from "../data/Data";
+import { Indices } from "../data/Constants";
 
 
 export class OrganizationParser extends Parser<Organization> {

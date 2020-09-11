@@ -1,9 +1,9 @@
 import { Parser } from "./Parser";
-import { Patient, SheetPage } from "../Data";
-import { Indices } from '../Constants';
+import { Patient, SheetPage } from "../data/Data";
+import { Indices } from '../data/Constants';
 
 export class PatientParser extends Parser<Patient> {
-    public get dependencies(): import("../Data").SheetPage[] {
+    public get dependencies(): import("../data/Data").SheetPage[] {
         return [SheetPage.Practitioner];
     }
     public get sheetType(): SheetPage {

@@ -1,6 +1,6 @@
 import {Parser} from "./Parser";
-import {ServiceRequest, SheetPage} from "../Data";
-import {Indices} from "../Constants";
+import {ServiceRequest, SheetPage} from "../data/Data";
+import {Indices} from "../data/Constants";
 
 export class ServiceRequestParser extends Parser<ServiceRequest> {
     public get dependencies(): SheetPage[] {

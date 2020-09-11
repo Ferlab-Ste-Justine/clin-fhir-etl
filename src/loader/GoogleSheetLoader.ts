@@ -1,14 +1,18 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetRow } from 'google-spreadsheet';
-import {PractitionerParser} from './parsers/PractitionerParser';
-import { Parser } from './parsers/Parser';
-import { SheetPage, ParsedType, ParsedData } from './Data';
-import { GOOGLE_SHEET_ID, GOOGLE_SPREADSHEETS_RAW_DATA_KEY, GOOGLE_API_KEY } from './Constants';
-import { PatientParser } from './parsers/PatientParser';
-import { ClinicalImpressionParser } from './parsers/ClinicalImpressionParser';
-import { FamilyMemberHistoryParser } from './parsers/FamilyMemberHistory';
-import {ServiceRequestParser} from "./parsers/ServiceRequestParser";
-import { OrganizationParser } from './parsers/OgranizationParser';
-import { PractitionerRoleParser } from './parsers/PractitionerRoleParser';
+import {PractitionerParser} from '../parsers/PractitionerParser';
+import { Parser } from '../parsers/Parser';
+import { SheetPage, ParsedType, ParsedData } from '../data/Data';
+import { GOOGLE_SHEET_ID, GOOGLE_SPREADSHEETS_RAW_DATA_KEY, GOOGLE_API_KEY } from '../data/Constants';
+import {
+    PatientParser,
+    ClinicalImpressionParser,
+    FamilyMemberHistoryParser,
+    ServiceRequestParser,
+    OrganizationParser,
+    PractitionerRoleParser
+} from '../parsers';
+
+import { AppLogger } from '../log/Logger';
 
 type ParsingEntry = {
     parser: Parser<ParsedType>,
@@ -25,7 +29,7 @@ export class GoogleSheetLoader {
             await GoogleSheetLoader.parse();
             return GoogleSheetLoader.parsedData;
         } catch(e) {
-            console.error(e);
+            AppLogger.of("main").error(e);
             throw new Error(`Failed to load data from Google Sheet: ${e}`);
         }
     }

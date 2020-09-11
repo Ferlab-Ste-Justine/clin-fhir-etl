@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { ParsedType } from './Data';
-import { FHIR_SERVER_HOST } from './Constants';
-import { AppLogger } from './Logger';
+import { ParsedType } from '../data/Data';
+import { FHIR_SERVER_HOST } from '../data/Constants';
+import { AppLogger } from '../log/Logger';
 
 enum Method {
     GET ,
@@ -68,7 +68,7 @@ export class Api {
             AppLogger.of("api").info("Uploading new entries to server.");
             await axios.post(FHIR_SERVER_HOST, batchCreate); 	
         } catch (error) {
-            console.error(error);
+            AppLogger.of("api").error(error);
         }
     }
 }

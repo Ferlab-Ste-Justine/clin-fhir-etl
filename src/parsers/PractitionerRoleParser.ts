@@ -1,6 +1,6 @@
 import { Parser } from "./Parser";
-import { PractitionerRole, SheetPage } from "../Data";
-import { Indices } from "../Constants";
+import { PractitionerRole, SheetPage } from "../data/Data";
+import { Indices } from "../data/Constants";
 
 export class PractitionerRoleParser extends Parser<PractitionerRole> {
     public get dependencies(): SheetPage[] {
