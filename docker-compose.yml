@@ -1,0 +1,13 @@
+version: '3.3'
+
+services:
+    clin-fhir-etl:
+      build:
+        context: ./
+        dockerfile: Dockerfile
+      volumes:
+        - ./src:/code/src
+      env_file:
+        - .env
+      network_mode: "host"
+      command: ["yarn", "start"]
