@@ -23,9 +23,13 @@ type ParsingEntry = {
 export class GoogleSheetLoader {
     private static readonly parsers: {[key in SheetPage]?: ParsingEntry} = {};
 
+    /**
+     * Async method that reads the data from Google Sheet, and parsed it.
+     * @returns Promise with a list of parsed data from Google Sheet.
+     */
     public static async load() : Promise<ParsedData[]> {
         try {
-            GoogleSheetLoader.loadParsers();
+            GoogleSheetLoader.registerParsers();
             await GoogleSheetLoader.extractData();
             await GoogleSheetLoader.parse();
             return GoogleSheetLoader.parsedData;
@@ -49,6 +53,11 @@ export class GoogleSheetLoader {
         return data;
     }
 
+    /**
+     * Async function that connects to Google Sheet using the 
+     * GOOGLE API KEY provided, and store async function 
+     * to load data for each page.
+     */
     private static async extractData() {
         const doc = new GoogleSpreadsheet(GOOGLE_SHEET_ID);
         await doc.useApiKey(GOOGLE_API_KEY);
@@ -65,6 +74,9 @@ export class GoogleSheetLoader {
         }
     }
 
+    /**
+     * Load the data for each page and parse it.
+     */
     private static async parse() {
         const processEntries: Promise<void>[] = [];
         for(const key in this.parsers) {
@@ -83,7 +95,10 @@ export class GoogleSheetLoader {
         }
     }
 
-    private static loadParsers(): void {
+    /**
+     * Register all the parsers to use.
+     */
+    private static registerParsers(): void {
         this.parsers[SheetPage.Practitioner] = {parser: new PractitionerParser()};
         this.parsers[SheetPage.Patient] = {parser: new PatientParser()};
         this.parsers[SheetPage.ClinicalImpression] = {parser: new ClinicalImpressionParser()};

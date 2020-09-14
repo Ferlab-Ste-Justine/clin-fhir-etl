@@ -29,6 +29,13 @@ type BatchBundle = {
 }
 
 class Batch {
+    /**
+     * Bundle a set of resources in an object. The structure of the created object
+     * can be seen here https://www.hl7.org/fhir/bundle.html, and can be
+     * processed by the HAPI/FHIR server. 
+     * @param method HTTP Method of the bundle (DELETE to remove, PUT to create, etc.)
+     * @param resources Resources to bundle.
+     */
     public static bundle(method: Method, resources: ParsedType[]): BatchBundle { 
         return  {
             resourceType: "Bundle",
@@ -56,6 +63,13 @@ class Batch {
 }
 
 export class Api {
+    /**
+     * Takes a set of parsed data and uploads it to FHIR Server.
+     * The data is bundled and only two requests are made to the FHIR server.
+     * The first request is to delete all the entries with the same ids as the data to uplaod.
+     * The seconds request is to upload the data
+     * @param data Parsed data to upload to FHIR Server
+     */
     public static async upload(data: ParsedType[]): Promise<void> {
         if(data.length === 0) {
             return;

@@ -17,6 +17,9 @@ export class Network {
         });
     }
 
+    /**
+     * Iterate through all the parsed data and uploads them to FHIR Server.
+     */
     public async upload(): Promise<void> {
         for(const key in this.networkData) {
             const page = SheetPage[key as keyof typeof SheetPage];
@@ -24,6 +27,12 @@ export class Network {
         }
     }	
 
+    /**
+     * Upload the parsed data of a page if its dependencies are all uploaded.
+     * If one or more dependencies haven't been uploaded, this method calls
+     * itself recursively with the dependency as @param page.
+     * @param page Page to upload the data for.
+     */
     private async uploadEntry(page: SheetPage) {
         const data = this.networkData[page];
 
