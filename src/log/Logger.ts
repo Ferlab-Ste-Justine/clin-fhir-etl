@@ -1,6 +1,6 @@
 import chalk from "chalk";
 
-interface Logger {
+export interface Logger {
     info(message: string): void;
     warn(message: string): void;
     error(message: string): void;
@@ -20,13 +20,13 @@ class ConsoleLogger implements Logger {
     }
 }
 
-enum LoggerType {
+export enum LoggerType {
     CONSOLE,
     FILE,
     OUTPUT
 }
 
-type LoggerEntry = {
+export type LoggerEntry = {
     type: LoggerType;
     name: string;
     alias?: string;

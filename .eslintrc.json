@@ -30,7 +30,6 @@
         "no-use-before-define": "error",
         "constructor-super": "warn",
         "curly": "warn",
-        "eqeqeq": "warn",
         "no-buffer-constructor": "warn",
         "no-caller": "warn",
         "no-debugger": "warn",
@@ -56,7 +55,6 @@
             "orientation",
             "context"
         ], // non-complete list of globals that are easy to access unintentionally
-        "no-var": "warn",
-        "jsdoc/no-types": "warn"
+        "no-var": "warn"
     }
 }

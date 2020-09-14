@@ -9,12 +9,23 @@ export enum SheetPage {
     PractitionerRole = "PractitionerRole"
 }
 
-export type ResourceType = "Practitioner" | "Patient" | "Observation" | "ClinicalImpression" | "FamilyMemberHistory" | "ServiceRequest" | "Organization" | "PractitionerRole";
-
-export type ParsedType = Practitioner | Patient | Observation | ClinicalImpression | FamilyMemberHistory | ServiceRequest | Organization | PractitionerRole;
+export type ResourceType = "Practitioner" | 
+                            "Patient" | 
+                            "Observation" | 
+                            "ClinicalImpression" | 
+                            "FamilyMemberHistory" | 
+                            "ServiceRequest" | 
+                            "Organization" | 
+                            "PractitionerRole";
 
 export interface Meta {
     profile: string[];
+}
+
+export interface Coding {
+    system?: string;
+    code: string;
+    display: string;
 }
 
 export interface Type {
@@ -36,6 +47,17 @@ export interface Name {
     suffix?: string[];
 }
 
+export interface ValueAge {
+    value: number;
+    unit: string;
+    system: string;
+    code: string;
+}
+
+export interface Reference {
+    reference: string;
+}
+
 export interface Extension {
     url: string;
     valueCoding?: Coding;
@@ -44,38 +66,14 @@ export interface Extension {
     valueAge?: ValueAge;
 }
 
-export interface Coding {
-    system?: string;
-    code: string;
-    display: string;
-}
-
-export interface Reference {
-    reference: string;
-}
-
-export interface ParsedData {
-    page: SheetPage;
-    data: ParsedType[];
-    dependencies: SheetPage[];
-}
-
-
-export interface ValueAge {
-    value: number;
-    unit: string;
-    system: string;
-    code: string;
+export interface Code {
+    coding?: Coding[];
+    text?: string;
 }
 
 export interface Investigation {
     code: Code;
     item: Reference[];
-}
-
-export interface Code {
-    coding?: Coding[];
-    text?: string;
 }
 
 export interface Note {
@@ -193,4 +191,19 @@ export interface Observation {
     note: Note[];
     extension: Extension[];
     valueCodeableConcept: Code;
+}
+
+export type ParsedType = Practitioner | 
+                            Patient | 
+                            Observation | 
+                            ClinicalImpression | 
+                            FamilyMemberHistory | 
+                            ServiceRequest | 
+                            Organization | 
+                            PractitionerRole;
+
+export interface ParsedData {
+    page: SheetPage;
+    data: ParsedType[];
+    dependencies: SheetPage[];
 }

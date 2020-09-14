@@ -6,7 +6,8 @@ import {
     Organization, 
     Patient, 
     Practitioner, 
-    PractitionerRole
+    PractitionerRole,
+    ServiceRequest
 } from '../src/data/Data';
 
 export const FAKE_PRACTITIONER: Practitioner = {
@@ -308,7 +309,7 @@ export const FAKE_FAMILIY_MEMEBER_HISTORY: FamilyMemberHistory = {
     ],
 }; 
 
-export const FAKE_SERVICE_REQUEST = {
+export const FAKE_SERVICE_REQUEST: ServiceRequest = {
     resourceType: "ServiceRequest",
     id: "SR00001",
     meta: {
@@ -326,8 +327,7 @@ export const FAKE_SERVICE_REQUEST = {
     ],
     status: "draft",
     intent: "order",
-    authoredOn: {
-    },
+    authoredOn: faker.date.recent().toString(),
     category: [
         {
             text: "MedicalRequest",
