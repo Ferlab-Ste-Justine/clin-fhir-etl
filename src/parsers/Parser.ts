@@ -1,4 +1,5 @@
-import { SheetPage, ParsedType } from '../data/Data';
+import { SheetPage, ParsedType, ResourceType, Reference } from '../data/Data';
+import { AppLogger } from '../log/Logger';
 
 
 export abstract class Parser<T extends ParsedType> {
@@ -25,5 +26,11 @@ export abstract class Parser<T extends ParsedType> {
             return;
         }
         this.parsedData = this.rawData.map(this.parseRow);
+    }
+
+    protected static createRef(resourceType: ResourceType, id: string): Reference {
+        return {
+            reference: `${resourceType}/${id}`
+        };
     }
 }

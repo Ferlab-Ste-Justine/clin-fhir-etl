@@ -29,13 +29,8 @@ export class PractitionerRoleParser extends Parser<PractitionerRole> {
                 ]
             },
             active: true,
-            practitioner: {
-                reference: practitioner
-            },
-            organization: {
-                reference: organization
-            },
-    
+            practitioner: Parser.createRef("Practitioner", practitioner),
+            organization: Parser.createRef("Organization", organization),
             telecom:[
                 {
                     system: "phone",

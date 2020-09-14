@@ -1,15 +1,27 @@
 import { Parser } from "./Parser";
-import { ClinicalImpression, SheetPage } from "../data/Data";
+import { ClinicalImpression, Reference, SheetPage } from "../data/Data";
 import { Indices } from "../data/Constants";
 
 
 export class ClinicalImpressionParser extends Parser<ClinicalImpression> {
     public get dependencies(): SheetPage[] {
-        return [SheetPage.Practitioner, SheetPage.Patient];
+        return [SheetPage.Practitioner, SheetPage.Patient, SheetPage.Observation];
     }
     
     public get sheetType(): SheetPage {
         return SheetPage.ClinicalImpression;
+    }
+
+    private static mergeInvestigations(observationInvestigations: string[], fmhInvestigation: string) : Reference[] {
+        const observations = observationInvestigations.map(ob => Parser.createRef('Observation', ob));
+        if(fmhInvestigation == null || fmhInvestigation === 'null' || fmhInvestigation.length === 0) {
+            return observations;
+        }
+
+        return [
+            ...observations, 
+            Parser.createRef('FamilyMemberHistory', fmhInvestigation)
+        ];
     }
     
     public parseRow(row: string[]): ClinicalImpression {
@@ -49,28 +61,27 @@ export class ClinicalImpressionParser extends Parser<ClinicalImpression> {
                 }
             ],
             status: status,
-            subject: {
-                reference: subject
-            },
+            subject: Parser.createRef("Patient", subject),
             date: new Date(date),
-            assessor:{"reference": assessor},
+            assessor: Parser.createRef("Practitioner", assessor),
             investigation: [
                 {
                     code: {
                         text: "initial-examination"
                     },
-                    item: [
-                        investigationItemReferenceCGH,
-                        investigationItemReferenceINDIC,
-                        investigationItemReferenceINVES,
-                        investigationItemReferencePHENO_A,
-                        investigationItemReferencePHENO_B,
-                        investigationItemReferencePHENO_C,
-                        investigationItemReferencePHENO_D,
-                        investigationItemReferenceFMH,
-                    ]
-                        .filter(investigation => investigation != null && investigation != 'null')
-                        .map(investigation => ({reference: investigation}))
+                    item: ClinicalImpressionParser.mergeInvestigations(
+                        [
+                            investigationItemReferenceCGH,
+                            investigationItemReferenceINDIC,
+                            investigationItemReferenceINVES,
+                            investigationItemReferencePHENO_A,
+                            investigationItemReferencePHENO_B,
+                            investigationItemReferencePHENO_C,
+                            investigationItemReferencePHENO_D,
+                        ]
+                            .filter(investigation => investigation != null && investigation != 'null'),
+                        investigationItemReferenceFMH 
+                    )
                 }
             ]
         };

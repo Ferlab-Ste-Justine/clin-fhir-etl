@@ -18,7 +18,8 @@ export class ServiceRequestParser extends Parser<ServiceRequest> {
         const status = row[Indices.SERVICE_REQUEST.STATUS];
         const intent = row[Indices.SERVICE_REQUEST.INTENT];
         const authoredOn = row[Indices.SERVICE_REQUEST.AUTHORED_ON];
-        const codeText = row[Indices.SERVICE_REQUEST.CODE_TEXT];
+        const codingCode = row[Indices.SERVICE_REQUEST.CODE_CODING_CODE];
+        const codingDisplay = row[Indices.SERVICE_REQUEST.CODE_CODING_DISPLAY];
         const requester = row[Indices.SERVICE_REQUEST.REQUESTER];
 
         return {
@@ -32,7 +33,7 @@ export class ServiceRequestParser extends Parser<ServiceRequest> {
             extension: [
                 {
                     url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/ref-clin-impression",
-                    valueReference: {"reference": clinicalImpressionId}
+                    valueReference: Parser.createRef("ClinicalImpression", clinicalImpressionId)
                 }
             ],
             status: status,
@@ -45,14 +46,13 @@ export class ServiceRequestParser extends Parser<ServiceRequest> {
             ],
             priority: "routine",
             code: {
-                text: codeText
+                coding:[{
+                    code: codingCode,
+                    display: codingDisplay
+                }]
             },
-            requester: {
-                reference: requester
-            },
-            subject: {
-                reference: subject
-            }
+            requester: Parser.createRef("Practitioner", requester),
+            subject: Parser.createRef("Patient", subject)
         };
     }
 }

@@ -1,15 +1,16 @@
 import { GoogleSpreadsheet, GoogleSpreadsheetRow } from 'google-spreadsheet';
-import {PractitionerParser} from '../parsers/PractitionerParser';
 import { Parser } from '../parsers/Parser';
 import { SheetPage, ParsedType, ParsedData } from '../data/Data';
 import { GOOGLE_SHEET_ID, GOOGLE_SPREADSHEETS_RAW_DATA_KEY, GOOGLE_API_KEY } from '../data/Constants';
 import {
+    PractitionerParser,
     PatientParser,
     ClinicalImpressionParser,
     FamilyMemberHistoryParser,
     ServiceRequestParser,
     OrganizationParser,
-    PractitionerRoleParser
+    PractitionerRoleParser,
+    ObservationParser
 } from '../parsers';
 
 import { AppLogger } from '../log/Logger';
@@ -50,7 +51,6 @@ export class GoogleSheetLoader {
 
     private static async extractData() {
         const doc = new GoogleSpreadsheet(GOOGLE_SHEET_ID);
-        // await doc.useServiceAccountAuth(Credentials);
         await doc.useApiKey(GOOGLE_API_KEY);
         await doc.loadInfo();
 
@@ -87,6 +87,7 @@ export class GoogleSheetLoader {
         this.parsers[SheetPage.Practitioner] = {parser: new PractitionerParser()};
         this.parsers[SheetPage.Patient] = {parser: new PatientParser()};
         this.parsers[SheetPage.ClinicalImpression] = {parser: new ClinicalImpressionParser()};
+        this.parsers[SheetPage.Observation] = {parser: new ObservationParser()};
         this.parsers[SheetPage.FMH] = {parser: new FamilyMemberHistoryParser()};
         this.parsers[SheetPage.ServiceRequest] = {parser: new ServiceRequestParser()};
         this.parsers[SheetPage.Organisation] = {parser: new OrganizationParser()};

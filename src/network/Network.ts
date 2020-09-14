@@ -36,7 +36,10 @@ export class Network {
         }
 
         // Upload the dependencies first
-        data.parsed.dependencies.forEach(async dependency => await this.uploadEntry(dependency));
+        for(const dependency of data.parsed.dependencies) {
+            await this.uploadEntry(dependency);
+        }
+        
         AppLogger.of("net").warn(`Processing ${page}`);
         await Api.upload(data.parsed.data);
         data.uploaded = true;

@@ -10,7 +10,7 @@ class ConsoleLogger implements Logger {
     constructor(private readonly namespace: string) {}
 
     info(message: string): void {
-        console.log(`${chalk.blue(chalk.bold(this.namespace))} ${chalk.blue(message)}`); 
+        console.log(`${chalk.cyan(chalk.bold(this.namespace))} ${chalk.blue(message)}`); 
     }
     warn(message: string): void {
         console.log(`${chalk.yellow(chalk.bold(this.namespace))} ${chalk.yellow(message)}`); 

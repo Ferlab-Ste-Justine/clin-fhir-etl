@@ -1,6 +1,7 @@
 export enum SheetPage {
     Practitioner = 'Practitioner',
     Patient = "Patient",
+    Observation = "Observation",
     ClinicalImpression = "ClinicalImpression",
     FMH = "FMH",
     ServiceRequest = "ServiceRequest",
@@ -8,9 +9,9 @@ export enum SheetPage {
     PractitionerRole = "PractitionerRole"
 }
 
-export type ResourceType = "Practitioner" | "Patient" | "ClinicalImpression" | "FamilyMemberHistory" | "ServiceRequest" | "Organization" | "PractitionerRole";
+export type ResourceType = "Practitioner" | "Patient" | "Observation" | "ClinicalImpression" | "FamilyMemberHistory" | "ServiceRequest" | "Organization" | "PractitionerRole";
 
-export type ParsedType = Practitioner | Patient | ClinicalImpression | FamilyMemberHistory | ServiceRequest | Organization | PractitionerRole;
+export type ParsedType = Practitioner | Patient | Observation | ClinicalImpression | FamilyMemberHistory | ServiceRequest | Organization | PractitionerRole;
 
 export interface Meta {
     profile: string[];
@@ -33,27 +34,6 @@ export interface Name {
     given: string[];
     prefix?: string[];
     suffix?: string[];
-}
-export interface Practitioner {
-    resourceType: ResourceType;
-    id: string;
-    meta: Meta;
-    identifier: Identifier[];
-    name: Name[];
-}
-
-export interface Patient {
-    resourceType: ResourceType;
-    id: string;
-    meta: Meta;
-    extension: Extension[];
-    identifier: Identifier[];
-    active: boolean;
-    name: Name[];
-    birthDate: Date;
-    gender: string;
-    generalPractitioner: Reference[];
-    managingOrganization: Reference;
 }
 
 export interface Extension {
@@ -80,21 +60,6 @@ export interface ParsedData {
     dependencies: SheetPage[];
 }
 
-export interface ClinicalImpression {
-    resourceType: ResourceType;
-    id: string;
-    meta: Meta;
-    extension: Extension[];
-    status: string;
-    subject: Assessor;
-    date: Date;
-    assessor: Assessor;
-    investigation: Investigation[];
-}
-
-export interface Assessor {
-    reference: string;
-}
 
 export interface ValueAge {
     value: number;
@@ -105,12 +70,70 @@ export interface ValueAge {
 
 export interface Investigation {
     code: Code;
-    item: Assessor[];
+    item: Reference[];
 }
 
 export interface Code {
     coding?: Coding[];
     text?: string;
+}
+
+export interface Note {
+    text: string;
+}
+
+export interface Relationship {
+    coding: Coding[];
+}
+
+export interface Category {
+    text: string;
+}
+
+export interface Telecom {
+    system: string;
+    value: string;
+    use: string;
+    rank?: number;
+}
+
+export interface Interpretation {
+    coding: Coding[];
+    text: string;
+}
+
+export interface Practitioner {
+    resourceType: ResourceType;
+    id: string;
+    meta: Meta;
+    identifier: Identifier[];
+    name: Name[];
+}
+
+export interface Patient {
+    resourceType: ResourceType;
+    id: string;
+    meta: Meta;
+    extension: Extension[];
+    identifier: Identifier[];
+    active: boolean;
+    name: Name[];
+    birthDate: Date;
+    gender: string;
+    generalPractitioner: Reference[];
+    managingOrganization: Reference;
+}
+
+export interface ClinicalImpression {
+    resourceType: ResourceType;
+    id: string;
+    meta: Meta;
+    extension: Extension[];
+    status: string;
+    subject: Reference;
+    date: Date;
+    assessor: Reference;
+    investigation: Investigation[];
 }
 
 export interface FamilyMemberHistory {
@@ -121,15 +144,6 @@ export interface FamilyMemberHistory {
     patient: Reference;
     relationship: Relationship;
     note: Note[];
-}
-
-
-export interface Note {
-    text: string;
-}
-
-export interface Relationship {
-    coding: Coding[];
 }
 
 export interface ServiceRequest {
@@ -147,10 +161,6 @@ export interface ServiceRequest {
     subject: Reference;
 }
 
-export interface Category {
-    text: string;
-}
-
 export interface Organization {
     resourceType: ResourceType;
     id: string;
@@ -162,18 +172,25 @@ export interface Organization {
 
 export interface PractitionerRole {
     resourceType: ResourceType;
-    id:           string;
-    meta:         Meta;
-    active:       boolean;
+    id: string;
+    meta: Meta;
+    active: boolean;
     practitioner: Reference;
     organization: Reference;
-    telecom:      Telecom[];
-    code:         Code[];
+    telecom: Telecom[];
+    code: Code[];
 }
 
-export interface Telecom {
-    system: string;
-    value:  string;
-    use:    string;
-    rank?:  number;
+export interface Observation {
+    resourceType: ResourceType;
+    id: string;
+    meta: Meta;
+    status: string;
+    category: Code[];
+    code: Code;
+    subject: Reference;
+    interpretation: Interpretation[];
+    note: Note[];
+    extension: Extension[];
+    valueCodeableConcept: Code;
 }

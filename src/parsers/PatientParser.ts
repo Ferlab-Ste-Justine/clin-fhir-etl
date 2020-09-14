@@ -4,7 +4,7 @@ import { Indices } from '../data/Constants';
 
 export class PatientParser extends Parser<Patient> {
     public get dependencies(): import("../data/Data").SheetPage[] {
-        return [SheetPage.Practitioner];
+        return [SheetPage.Practitioner, SheetPage.Organisation];
     }
     public get sheetType(): SheetPage {
         return SheetPage.Patient;
@@ -25,7 +25,7 @@ export class PatientParser extends Parser<Patient> {
         const birthdate = row[Indices.PATIENT.BIRTHDATE];
         const gender = row[Indices.PATIENT.GENDER];
         const generalPractitioner = row[Indices.PATIENT.GENERAL_PRACTITIONER];
-        const managinOrganisation = row[Indices.PATIENT.MANAGING_ORGANISATION];
+        const managingOrganisation = row[Indices.PATIENT.MANAGING_ORGANISATION];
 		
         return {
             resourceType: "Patient",
@@ -63,9 +63,7 @@ export class PatientParser extends Parser<Patient> {
             ],
             gender: gender,
             generalPractitioner: [
-                {
-                    reference: generalPractitioner,
-                }
+                Parser.createRef("Practitioner", generalPractitioner)
             ],
             identifier:[
                 {
@@ -95,9 +93,7 @@ export class PatientParser extends Parser<Patient> {
                     value: identifierValueJHN,
                 },
             ],
-            managingOrganization:{
-                reference: managinOrganisation,
-            },
+            managingOrganization: Parser.createRef("Organization", managingOrganisation),
             name:[{
                 family: familyName,
                 given: [givenName],

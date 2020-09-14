@@ -28,7 +28,7 @@ export class FamilyMemberHistoryParser extends Parser<FamilyMemberHistory> {
                 ]
             },
             status: "completed",
-            patient: {reference: patient},
+            patient: Parser.createRef("Patient", patient),
             relationship: {
                 coding: [
                     {

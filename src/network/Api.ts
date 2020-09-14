@@ -57,16 +57,20 @@ class Batch {
 
 export class Api {
     public static async upload(data: ParsedType[]): Promise<void> {
-    // Create a batch to delete all the FHIR entries with the same IDs
-        AppLogger.of("api").info("Generating bundles.");
+        if(data.length === 0) {
+            return;
+        }
+
+        AppLogger.of("api").info(`Generating bundles.`);
+
+        // Create a batch to delete all the FHIR entries with the same IDs
         const batchDelete = Batch.bundle(Method.DELETE, data);
         const batchCreate = Batch.bundle(Method.PUT, data);
-
         try {
             AppLogger.of("api").info("Deleting old entries from server.");
             await axios.post(FHIR_SERVER_HOST, batchDelete);
             AppLogger.of("api").info("Uploading new entries to server.");
-            await axios.post(FHIR_SERVER_HOST, batchCreate); 	
+            await axios.post(FHIR_SERVER_HOST, batchCreate);
         } catch (error) {
             AppLogger.of("api").error(error);
         }
