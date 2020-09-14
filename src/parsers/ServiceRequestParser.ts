@@ -38,7 +38,7 @@ export class ServiceRequestParser extends Parser<ServiceRequest> {
             ],
             status: status,
             intent: intent,
-            authoredOn: new Date(authoredOn),
+            authoredOn: authoredOn,
             category: [
                 {
                     text: "MedicalRequest"

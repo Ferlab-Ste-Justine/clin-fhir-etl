@@ -118,7 +118,7 @@ export interface Patient {
     identifier: Identifier[];
     active: boolean;
     name: Name[];
-    birthDate: Date;
+    birthDate: string;
     gender: string;
     generalPractitioner: Reference[];
     managingOrganization: Reference;
@@ -131,7 +131,7 @@ export interface ClinicalImpression {
     extension: Extension[];
     status: string;
     subject: Reference;
-    date: Date;
+    date: string;
     assessor: Reference;
     investigation: Investigation[];
 }
@@ -153,7 +153,7 @@ export interface ServiceRequest {
     extension: Extension[];
     status: string;
     intent: string;
-    authoredOn: Date;
+    authoredOn: string;
     category: Category[];
     priority: string;
     code: Code;

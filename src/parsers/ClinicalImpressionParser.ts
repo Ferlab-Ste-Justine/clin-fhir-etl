@@ -5,7 +5,7 @@ import { Indices } from "../data/Constants";
 
 export class ClinicalImpressionParser extends Parser<ClinicalImpression> {
     public get dependencies(): SheetPage[] {
-        return [SheetPage.Practitioner, SheetPage.Patient, SheetPage.Observation];
+        return [SheetPage.Practitioner, SheetPage.Patient, SheetPage.Observation, SheetPage.FMH];
     }
     
     public get sheetType(): SheetPage {
@@ -62,7 +62,7 @@ export class ClinicalImpressionParser extends Parser<ClinicalImpression> {
             ],
             status: status,
             subject: Parser.createRef("Patient", subject),
-            date: new Date(date),
+            date: date,
             assessor: Parser.createRef("Practitioner", assessor),
             investigation: [
                 {

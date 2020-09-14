@@ -34,7 +34,7 @@ export class PatientParser extends Parser<Patient> {
             },
             id: id,
             active: JSON.parse(active),
-            birthDate: new Date(birthdate),
+            birthDate: birthdate,
             extension:[
                 {
                     url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/qc-ethnicity",

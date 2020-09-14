@@ -1,5 +1,4 @@
 import { SheetPage, ParsedType, ResourceType, Reference } from '../data/Data';
-import { AppLogger } from '../log/Logger';
 
 
 export abstract class Parser<T extends ParsedType> {
