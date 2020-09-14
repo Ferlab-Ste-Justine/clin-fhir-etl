@@ -27,7 +27,7 @@ export abstract class Parser<T extends ParsedType> {
 
     /**
      * Iterate through each line in @param data and parse an object @type T.
-     * The parsed data is then stored in the @property parsedData.
+     * The parsed data is then stored in @property parsedData.
      * @param data All the lines to parse
      */
     public parse(data: string[][]): void {
