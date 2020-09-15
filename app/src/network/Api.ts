@@ -108,7 +108,7 @@ export class Api {
     }
 
     /**
-     * Makes a POST request to FHIR Server. 
+     * POST request to FHIR Server with the specified data and the authroization header. 
      * If the token has expired, it will call @function retrieveAccessToken to generate
      * a new access token.
      * @param data Bundle to send to FHIR server

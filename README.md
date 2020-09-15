@@ -43,12 +43,12 @@ You need a Google Developer account to use this application.
     **IMPORTANT**
     If you're going to upload the data to a remote FHIR host(like in QA), you need to set these additional environement variables for authentication
     ```
-    FHIR_AUTH_URL=Url of the fhir server (ex, https://auth.qa.cqdg.ferlab.bio)
+    FHIR_AUTH_URL=Auth server url (ex, https://auth.qa.cqdg.ferlab.bio)
     FHIR_AUTH_CLIN_REALM=KEYCLOAK CLIN REALM 
     FHIR_AUTH_CLIENT_ID=CLIENT ID IN KEYCLOAK
     FHIR_AUTH_CLIENT_SECRET=CLIENT SECRET IN KEYCLOAK
     ```
-5. Start the application locally with 
+5. Start the app with 
         ```
         yarn start
         ```
@@ -58,7 +58,7 @@ You need a Google Developer account to use this application.
         ```
 
 ### Docker
-You can also run the applicaiton with docker
+You can also run the applicaiton with docker, you still need the `.env` ([steps 3 and 4](#project))
 ```bash 
     docker-compose up -d
 ```
