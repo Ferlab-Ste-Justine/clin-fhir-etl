@@ -1,6 +1,15 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import qs from 'querystring';
 import { ParsedType } from '../data/Data';
-import { FHIR_SERVER_HOST } from '../data/Constants';
+import {  
+    AUTH_REQUIRED,
+    FHIR_AUTH_CLIENT_ID, 
+    FHIR_AUTH_CLIENT_SECRET, 
+    FHIR_AUTH_CLIN_REALM, 
+    FHIR_AUTH_URL, 
+    FHIR_SERVER_HOST, 
+    MAX_AUTH_RETRY_COUNT
+} from '../data/Constants';
 import { AppLogger } from '../log/Logger';
 
 enum Method {
@@ -63,6 +72,72 @@ class Batch {
 }
 
 export class Api {
+    private static counter = 0;
+    private static token?: string = null;
+
+    /**
+     * Generate a new access token for the application to use.
+     * The access token is generated from the Keyloack host specified
+     * in the .env file.
+     */
+    private static async retrieveAccessToken() : Promise<void> {
+        const url = `${FHIR_AUTH_URL}/auth/realms/${FHIR_AUTH_CLIN_REALM}/protocol/openid-connect/token`;
+        try {
+            const response = await axios.post(
+                url,
+                qs.stringify({
+                    grant_type: "client_credentials",
+                    client_secret: FHIR_AUTH_CLIENT_SECRET,
+                    client_id: FHIR_AUTH_CLIENT_ID
+                }),
+                {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                }
+            );
+    
+            if(response.status !== 200) {
+                throw new Error(response.data);
+            }
+            Api.token = response.data.access_token; 
+        } catch (error) {
+            AppLogger.of("api").error(error);
+            throw error;
+        }
+    }
+
+    /**
+     * Makes a POST request to FHIR Server. 
+     * If the token has expired, it will call @function retrieveAccessToken to generate
+     * a new access token.
+     * @param data Bundle to send to FHIR server
+     */
+    private static async post<T extends BatchBundle>(data: T) : Promise<AxiosResponse<unknown>> {
+        if(Api.counter > MAX_AUTH_RETRY_COUNT) {
+            throw new Error(`Auth failed ${MAX_AUTH_RETRY_COUNT} times[MAXIMUM RETRY COUNT REACHED]`);
+        }
+
+        if(AUTH_REQUIRED && Api.token == null) {
+            await Api.retrieveAccessToken();
+        }
+
+        const response = await axios.post(FHIR_SERVER_HOST, data, {
+            headers:{
+                Authorization: `Bearer ${Api.token}`
+            }
+        });
+
+        if(response.status === 401) {
+            Api.token = null;
+            Api.counter++;
+            Api.post(data);
+        }
+
+        Api.counter = 0;
+        return response;
+    }
+
     /**
      * Takes a set of parsed data and uploads it to FHIR Server.
      * The data is bundled and only two requests are made to the FHIR server.
@@ -82,9 +157,9 @@ export class Api {
         const batchCreate = Batch.bundle(Method.PUT, data);
         try {
             AppLogger.of("api").info("Deleting old entries from server.");
-            await axios.post(FHIR_SERVER_HOST, batchDelete);
+            await Api.post(batchDelete);
             AppLogger.of("api").info("Uploading new entries to server.");
-            await axios.post(FHIR_SERVER_HOST, batchCreate);
+            await Api.post(batchCreate);
         } catch (error) {
             AppLogger.of("api").error(error);
         }
