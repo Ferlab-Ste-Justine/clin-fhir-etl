@@ -58,7 +58,7 @@ You need a Google Developer account to use this application.
         ```
 
 ### Docker
-You can also run the applicaiton with docker, you still need the `.env` ([steps 3 and 4](#project))
+You can also run the applicaiton with docker. You will need the `.env` like seen in [steps 3 and 4](#project)
 ```bash 
     docker-compose up -d
 ```
