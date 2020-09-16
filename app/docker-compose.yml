@@ -8,6 +8,6 @@ services:
       volumes:
         - ./src:/code/src
       env_file:
-        - ../.env
+        - .env
       network_mode: "host"
       command: ["yarn", "start"]

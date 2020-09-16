@@ -1,6 +1,6 @@
 # CLIN FHIR ETL
 
-clin-fhir-et is a typescript application that reads FHIR data from a Google Sheet and upload it to a FHIR server.
+clin-fhir-etl is a typescript application that reads data from a Google Sheet and upload it to a FHIR server.
 
 This project requires a Google Developer account.
 
@@ -29,15 +29,16 @@ You need a Google Developer account to use this application.
     ```
     npm install
     ```
-3. Create an `.env` file at the root of the project
+3. Create an `.env` file in the `app/` folder (`.env.development` is an example)
     ```bash
-    touch .env
+    cd app && touch .env
     ```
 4. Set your **FHIR server url**, **Google Sheet ID** and the **GOOGLE API KEY *(that you copied earlier)***
     ```
     FHIR_SERVER_HOST=...
     GOOGLE_API_KEY=...
     GOOGLE_SHEET_ID=...
+    AUTH_REQUIRED=false
     ```
 
     **IMPORTANT**
@@ -47,6 +48,10 @@ You need a Google Developer account to use this application.
     FHIR_AUTH_CLIN_REALM=KEYCLOAK CLIN REALM 
     FHIR_AUTH_CLIENT_ID=CLIENT ID IN KEYCLOAK
     FHIR_AUTH_CLIENT_SECRET=CLIENT SECRET IN KEYCLOAK
+    ```
+    and change AUTH_REQUIRED to `true`
+    ```
+    AUTH_REQUIRED=true
     ```
 5. Start the app with 
         ```
@@ -58,9 +63,9 @@ You need a Google Developer account to use this application.
         ```
 
 ### Docker
-You can also run the applicaiton with docker. You will need the `.env` like seen in [steps 3 and 4](#project)
+You can also run the applicaiton with docker. You will need the `.env` as seen in [steps 3 and 4](#project)
 ```bash 
-    docker-compose up -d
+docker-compose up
 ```
 
 ## License

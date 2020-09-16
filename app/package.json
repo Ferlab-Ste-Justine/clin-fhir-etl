@@ -4,9 +4,9 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node app/src/index.ts",
+    "start": "ts-node src/index.ts",
     "lint": "eslint . --ext .ts",
-    "test": "mocha -r ts-node/register app/test/**/*.ts"
+    "test": "mocha -r ts-node/register test/**/*.ts"
   },
   "author": "",
   "license": "MIT",
