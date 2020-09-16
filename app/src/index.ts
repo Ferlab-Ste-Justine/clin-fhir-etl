@@ -12,7 +12,7 @@ const start = async () => {
         const data = await GoogleSheetLoader.load();
         AppLogger.of("main").info(`Uploading data to FHIR service ${FHIR_SERVER_HOST}`);
         const network = new Network(data);
-        network.upload();
+        await network.upload();
     } catch (error) {
         AppLogger.of("main").error(error);
     }

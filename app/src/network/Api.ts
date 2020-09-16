@@ -122,20 +122,24 @@ export class Api {
             await Api.retrieveAccessToken();
         }
 
-        const response = await axios.post(FHIR_SERVER_HOST, data, {
-            headers:{
-                Authorization: `Bearer ${Api.token}`
+        try {
+            const response = await axios.post(FHIR_SERVER_HOST, data, {
+                headers:{
+                    Authorization: `Bearer ${Api.token}`
+                }
+            });
+            Api.counter = 0;
+            return response;
+        } catch(error) {
+            const {response} = error;
+            if(response != null && response.status === 401) {
+                Api.token = null;
+                Api.counter++;
+                Api.post(data);
+            } else {
+                throw error;
             }
-        });
-
-        if(response.status === 401) {
-            Api.token = null;
-            Api.counter++;
-            Api.post(data);
         }
-
-        Api.counter = 0;
-        return response;
     }
 
     /**

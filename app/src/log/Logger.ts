@@ -12,9 +12,11 @@ class ConsoleLogger implements Logger {
     info(message: string): void {
         console.log(`${chalk.cyan(chalk.bold(this.namespace))} ${chalk.blue(message)}`); 
     }
+
     warn(message: string): void {
         console.log(`${chalk.yellow(chalk.bold(this.namespace))} ${chalk.yellow(message)}`); 
     }
+    
     error(message: string): void {
         console.log(`${chalk.red(chalk.bold(this.namespace))} ${chalk.red(message)}`); 
     }

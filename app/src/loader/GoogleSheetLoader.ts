@@ -60,7 +60,7 @@ export class GoogleSheetLoader {
      */
     private static async extractData() {
         const doc = new GoogleSpreadsheet(GOOGLE_SHEET_ID);
-        await doc.useApiKey(GOOGLE_API_KEY);
+        doc.useApiKey(GOOGLE_API_KEY);
         await doc.loadInfo();
 
         for (let i = 0; i < doc.sheetCount; i += 1) {
