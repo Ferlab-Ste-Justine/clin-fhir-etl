@@ -25,10 +25,14 @@ export class OrganizationParser extends Parser<Organization> {
                     "http://hl7.org/fhir/StructureDefinition/Organization"
                 ]
             },
-            type:{
-                code: typeCode,
-                display: typeDisplay
-            },
+            type:[{
+                coding:[
+                    {
+                        code: typeCode,
+                        display: typeDisplay
+                    }
+                ]
+            }],
             name: name,
             alias:[alias]
         };

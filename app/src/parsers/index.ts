@@ -4,7 +4,7 @@ import { ClinicalImpressionParser } from './ClinicalImpressionParser';
 import { ObservationParser } from './ObservationParser';
 import { FamilyMemberHistoryParser } from './FamilyMemberHistory';
 import { ServiceRequestParser } from "./ServiceRequestParser";
-import { OrganizationParser } from './OgranizationParser';
+import { OrganizationParser } from './OrganizationParser';
 import { PractitionerRoleParser } from './PractitionerRoleParser';
 
 
