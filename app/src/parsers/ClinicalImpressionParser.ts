@@ -46,7 +46,7 @@ export class ClinicalImpressionParser extends Parser<ClinicalImpression> {
             id,
             meta:{
                 profile:[
-                    "http://fhir.cqdg.ferlab.bio/StructureDefinition/cqdg-clinical-impression"
+                    "http://fhir.cqgc.ferlab.bio/StructureDefinition/cqgc-clinical-impression"
                 ]
             },
             extension: [
