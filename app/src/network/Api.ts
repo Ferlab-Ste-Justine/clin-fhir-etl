@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import qs from 'querystring';
 import { ParsedType } from '../data/Data';
+import {v4 as uuid} from 'uuid';
 import {  
     AUTH_REQUIRED,
     FHIR_AUTH_CLIENT_ID, 
@@ -32,7 +33,7 @@ type BatchEntry = {
 
 type BatchBundle = {
     resourceType: "Bundle",
-    id: "CLIN_FHIR_ETL",
+    id: "clin",
     type: "batch",
     entry: BatchEntry[];
 }
@@ -48,7 +49,7 @@ class Batch {
     public static bundle(method: Method, resources: ParsedType[]): BatchBundle { 
         return  {
             resourceType: "Bundle",
-            id: "CLIN_FHIR_ETL",
+            id: "clin",
             type: "batch",
             entry: resources.map(resource => {
                 if(method === Method.DELETE) {
@@ -64,6 +65,7 @@ class Batch {
                         method: Method[method].toString(),
                         url: `${resource.resourceType}/${resource.id}`
                     },
+                    fullUrl: `urn:uuid:${uuid()}`,
                     resource,
                 };
             })

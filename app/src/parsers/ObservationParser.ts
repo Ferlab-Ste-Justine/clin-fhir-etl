@@ -1,15 +1,17 @@
-import { Parser } from "./Parser";
-import { Observation, SheetPage } from "../data/Data";
-import { Indices } from "../data/Constants";
+import {Parser} from "./Parser";
+import {Observation, SheetPage} from "../data/Data";
+import {Indices} from "../data/Constants";
 
 
 export class ObservationParser extends Parser<Observation> {
     public get dependencies(): SheetPage[] {
-        return [SheetPage.Practitioner, SheetPage.Patient]; 
+        return [SheetPage.Practitioner, SheetPage.Patient];
     }
+
     public get sheetType(): SheetPage {
         return SheetPage.Observation;
     }
+
     public parseRow(row: string[]): Observation {
         const id = row[Indices.OBSERVATION.ID];
         const codeCodingCode = row[Indices.OBSERVATION.CODE_CODING_CODE];
@@ -20,13 +22,21 @@ export class ObservationParser extends Parser<Observation> {
         const valueCodeableConceptDisplay = row[Indices.OBSERVATION.VALUE_CODEABLE_CONCEPT_DISPLAY];
         const interpretationCodingCode = row[Indices.OBSERVATION.INTERPRETATION_CODING_CODE];
         const interpretationCodingDisplay = row[Indices.OBSERVATION.INTERPRETATION_CODING_DISPLAY];
-        const interpretation_text = row[Indices.OBSERVATION.INTERPRETATION_TEXT];
+        const interpretationText = row[Indices.OBSERVATION.INTERPRETATION_TEXT];
         const extensionAgeAtOnSetCode = row[Indices.OBSERVATION.EXTENSION_AGE_AT_ON_SET_CODE];
         const extensionAgeAtOnSetDisplay = row[Indices.OBSERVATION.EXTENSION_AGE_AT_ON_SET_DISPLAY];
         const note = row[Indices.OBSERVATION.NOTE];
         const status = row[Indices.OBSERVATION.STATUS];
 
-        return {
+        const isAgeOnSetExtensionEnabled = extensionAgeAtOnSetCode.length > 0 && extensionAgeAtOnSetDisplay.length > 0;
+        const isHpoCategoryExtensionEnabled = 
+        extensionHpoCategoryCode.length > 0 
+        && extensionHpoCategoryDisplay.length > 0;
+        const isInterpretationEnabled = interpretationCodingCode.length > 0 || interpretationCodingDisplay.length > 0
+            || interpretationText.length > 0;
+        const isValueEnabled = valueCodeableConceptCode.length > 0 && valueCodeableConceptDisplay.length > 0;
+
+        const observation: Observation = {
             resourceType: "Observation",
             id: id,
             meta: {
@@ -56,24 +66,14 @@ export class ObservationParser extends Parser<Observation> {
                 ]
             },
             subject: Parser.createRef("Patient", subject),
-            interpretation: [
-                {
-                    coding: [
-                        {
-                            code: interpretationCodingCode,
-                            display: interpretationCodingDisplay,
-                        }
-                    ],
-                    text: interpretation_text,
-                },
-            ],
-            note: [
-                {
-                    text: note
-                }
-            ],
-        
-            extension: [
+            interpretation: [],
+            note: [],
+
+            extension: [],
+        };
+
+        if (isAgeOnSetExtensionEnabled) {
+            observation.extension.push(
                 {
                     url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/age-at-onset",
                     valueCoding: {
@@ -81,15 +81,35 @@ export class ObservationParser extends Parser<Observation> {
                         display: extensionAgeAtOnSetDisplay
                     }
                 },
+            );
+        }
+        if (isHpoCategoryExtensionEnabled) {
+            observation.extension.push(
                 {
                     url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/hpo-category",
                     valueCoding: {
                         code: extensionHpoCategoryCode,
                         display: extensionHpoCategoryDisplay
                     }
-                }
-            ],
-            valueCodeableConcept: {
+                },
+            );
+        }
+
+        if (isInterpretationEnabled) {
+            observation.interpretation.push(
+                {
+                    coding: [
+                        {
+                            code: interpretationCodingCode,
+                            display: interpretationCodingDisplay,
+                        }
+                    ],
+                    text: interpretationText,
+                },);
+        }
+
+        if (isValueEnabled) {
+            observation.valueCodeableConcept = {
                 coding: [
                     {
                         system: "http://purl.obolibrary.org/obo/hp.owl",
@@ -97,8 +117,16 @@ export class ObservationParser extends Parser<Observation> {
                         display: valueCodeableConceptDisplay
                     }
                 ]
-            },
-        };
+            };
+        }
+
+        if (note.length > 0) {
+            observation.note.push({
+                text: note
+            });
+        }
+
+        return observation;
     }
-    
+
 }

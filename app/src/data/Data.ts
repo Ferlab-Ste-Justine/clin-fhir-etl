@@ -28,14 +28,14 @@ export interface Coding {
     display: string;
 }
 
-export interface Type {
-    coding: Coding[];
+export interface CodeableConcept {
+    coding?: Coding[];
     text?: string;
 }
 
 export interface Identifier {
     use?: string;
-    type: Type;
+    type: CodeableConcept;
     value: string;
 }
 
@@ -47,7 +47,7 @@ export interface Name {
     suffix?: string[];
 }
 
-export interface ValueAge {
+export interface Age {
     value: number;
     unit: string;
     system: string;
@@ -63,16 +63,11 @@ export interface Extension {
     valueCoding?: Coding;
     valueReference?: Reference;
     valueBoolean?: boolean;
-    valueAge?: ValueAge;
-}
-
-export interface Code {
-    coding?: Coding[];
-    text?: string;
+    valueAge?: Age;
 }
 
 export interface Investigation {
-    code: Code;
+    code: CodeableConcept;
     item: Reference[];
 }
 
@@ -154,7 +149,7 @@ export interface ServiceRequest {
     authoredOn: string;
     category: Category[];
     priority: string;
-    code: Code;
+    code: CodeableConcept;
     requester: Reference;
     subject: Reference;
 }
@@ -165,7 +160,7 @@ export interface Organization {
     meta: Meta;
     name: string;
     alias: string[];
-    type: Coding
+    type: CodeableConcept[]
 }
 
 export interface PractitionerRole {
@@ -176,7 +171,7 @@ export interface PractitionerRole {
     practitioner: Reference;
     organization: Reference;
     telecom: Telecom[];
-    code: Code[];
+    code: CodeableConcept[];
 }
 
 export interface Observation {
@@ -184,13 +179,13 @@ export interface Observation {
     id: string;
     meta: Meta;
     status: string;
-    category: Code[];
-    code: Code;
+    category: CodeableConcept[];
+    code: CodeableConcept;
     subject: Reference;
     interpretation: Interpretation[];
     note: Note[];
     extension: Extension[];
-    valueCodeableConcept: Code;
+    valueCodeableConcept?: CodeableConcept;
 }
 
 export type ParsedType = Practitioner | 
