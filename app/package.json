@@ -4,17 +4,22 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start:fhir": "ts-node src/fhir.ts",
+    "start:elastic": "ts-node src/elastic.ts",
     "lint": "eslint . --ext .ts",
     "test": "mocha -r ts-node/register test/**/*.ts"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@elastic/elasticsearch": "^7.10.0",
+    "@types/lodash": "^4.14.165",
     "axios": "^0.20.0",
     "chalk": "^4.1.0",
     "dotenv": "^8.2.0",
-    "google-spreadsheet": "^3.0.13"
+    "google-spreadsheet": "^3.0.13",
+    "lodash": "^4.17.20",
+    "uuid": "^8.3.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",
@@ -23,6 +28,7 @@
     "@types/mocha": "^8.0.3",
     "@types/node": "^14.6.4",
     "@types/sinon": "^9.0.5",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.1.0",
     "@typescript-eslint/parser": "^4.1.0",
     "chai": "^4.2.0",

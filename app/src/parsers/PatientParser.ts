@@ -1,6 +1,7 @@
 import { Parser } from "./Parser";
 import { Patient, SheetPage } from "../data/Data";
 import { Indices } from '../data/Constants';
+import { BLOOD_RELATIONSHIP_EXTENSION, ETHNICITY_EXTENSTION, FAMILY_ID_EXTENSION } from "../utils/Extensions";
 
 export class PatientParser extends Parser<Patient> {
     public get dependencies(): import("../data/Data").SheetPage[] {
@@ -37,7 +38,7 @@ export class PatientParser extends Parser<Patient> {
             birthDate: birthdate,
             extension:[
                 {
-                    url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/qc-ethnicity",
+                    url: ETHNICITY_EXTENSTION,
                     valueCoding:{
                         system: "http://fhir.cqgc.ferlab.bio/CodeSystem/qc-ethnicity",
                         code: ethnicityCode,
@@ -45,7 +46,7 @@ export class PatientParser extends Parser<Patient> {
                     }
                 },
                 {
-                    url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/family-id",
+                    url: FAMILY_ID_EXTENSION,
                     valueReference: {reference: `Group/${familyId}`}
                 },
                 {
@@ -53,7 +54,7 @@ export class PatientParser extends Parser<Patient> {
                     valueBoolean: JSON.parse(isProband)
                 },
                 {
-                    url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/blood-relationship",
+                    url: BLOOD_RELATIONSHIP_EXTENSION,
                     valueCoding:{
                         system: "http://fhir.cqgc.ferlab.bio/CodeSystem/blood-relationship",
                         code: bloodRelationshipCode,
