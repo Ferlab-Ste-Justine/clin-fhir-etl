@@ -7,6 +7,8 @@ export const FHIR_AUTH_CLIN_REALM = process.env.FHIR_AUTH_CLIN_REALM;
 export const FHIR_AUTH_CLIENT_ID = process.env.FHIR_AUTH_CLIENT_ID;
 export const FHIR_AUTH_CLIENT_SECRET = process.env.FHIR_AUTH_CLIENT_SECRET;
 export const AUTH_REQUIRED = process.env.AUTH_REQUIRED === 'true' ? true : false;
+export const ELASTIC_SEARCH_HOST = process.env.ELASTIC_SEARCH_HOST;
+export const ELASTIC_SEARCH_AUTH = process.env.ELASTIC_SEARCH_AUTH;
 
 export const MAX_AUTH_RETRY_COUNT = 3;
 export const GOOGLE_SPREADSHEETS_RAW_DATA_KEY = '_rawData';
