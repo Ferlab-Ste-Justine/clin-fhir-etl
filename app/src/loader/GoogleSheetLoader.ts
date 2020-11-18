@@ -99,14 +99,14 @@ export class GoogleSheetLoader {
      * Register all the parsers to use.
      */
     private static registerParsers(): void {
-        this.parsers[SheetPage.Practitioner] = {parser: new PractitionerParser()};
-        this.parsers[SheetPage.Patient] = {parser: new PatientParser()};
-        this.parsers[SheetPage.ClinicalImpression] = {parser: new ClinicalImpressionParser()};
-        this.parsers[SheetPage.Observation] = {parser: new ObservationParser()};
-        this.parsers[SheetPage.FMH] = {parser: new FamilyMemberHistoryParser()};
-        this.parsers[SheetPage.ServiceRequest] = {parser: new ServiceRequestParser()};
-        this.parsers[SheetPage.Organisation] = {parser: new OrganizationParser()};
-        this.parsers[SheetPage.PractitionerRole] = {parser: new PractitionerRoleParser()};
+        this.parsers[SheetPage.Practitioner] = { parser: new PractitionerParser() };
+        this.parsers[SheetPage.Patient] = { parser: new PatientParser() };
+        this.parsers[SheetPage.ClinicalImpression] = { parser: new ClinicalImpressionParser() };
+        this.parsers[SheetPage.Observation] = { parser: new ObservationParser() };
+        this.parsers[SheetPage.FMH] = { parser: new FamilyMemberHistoryParser() };
+        this.parsers[SheetPage.ServiceRequest] = { parser: new ServiceRequestParser() };
+        this.parsers[SheetPage.Organisation] = { parser: new OrganizationParser() };
+        this.parsers[SheetPage.PractitionerRole] = { parser: new PractitionerRoleParser() };
     }
 
     private static extractRawData(row: GoogleSpreadsheetRow): string[] { return row[GOOGLE_SPREADSHEETS_RAW_DATA_KEY]; }

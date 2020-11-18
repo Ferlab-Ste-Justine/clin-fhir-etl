@@ -22,6 +22,7 @@
         "no-tabs": "off",
         "indent": ["error", 4],
         "semi": "error",
+        "object-curly-spacing": ["error", "always"],
         "space-before-blocks": "error",
         "space-infix-ops": "error",
         "space-unary-ops": "error",

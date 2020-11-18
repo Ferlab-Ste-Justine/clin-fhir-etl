@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import qs from 'querystring';
 import { ParsedType } from '../data/Data';
-import {v4 as uuid} from 'uuid';
+import { v4 as uuid } from 'uuid';
 import {  
     AUTH_REQUIRED,
     FHIR_AUTH_CLIENT_ID, 
@@ -133,7 +133,7 @@ export class Api {
             Api.counter = 0;
             return response;
         } catch(error) {
-            const {response} = error;
+            const { response } = error;
             if(response != null && response.status === 401) {
                 Api.token = null;
                 Api.counter++;

@@ -1,6 +1,6 @@
-import {Parser} from "./Parser";
-import {FamilyMemberHistory, SheetPage} from "../data/Data";
-import {Indices} from "../data/Constants";
+import { Parser } from "./Parser";
+import { FamilyMemberHistory, SheetPage } from "../data/Data";
+import { Indices } from "../data/Constants";
 
 
 export class FamilyMemberHistoryParser extends Parser<FamilyMemberHistory> {
@@ -37,7 +37,7 @@ export class FamilyMemberHistoryParser extends Parser<FamilyMemberHistory> {
                     }
                 ]
             },
-            note: [{"text": note}]
+            note: [{ "text": note }]
         };
     }
 }

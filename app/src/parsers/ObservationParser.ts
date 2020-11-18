@@ -1,6 +1,6 @@
-import {Parser} from "./Parser";
-import {Observation, SheetPage} from "../data/Data";
-import {Indices} from "../data/Constants";
+import { Parser } from "./Parser";
+import { Observation, SheetPage } from "../data/Data";
+import { Indices } from "../data/Constants";
 
 
 export class ObservationParser extends Parser<Observation> {

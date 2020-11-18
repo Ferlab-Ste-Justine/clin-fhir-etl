@@ -53,7 +53,7 @@ describe("Patient Parser", () => {
                 },
                 {
                     url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/family-id",
-                    valueReference: {reference: `Group/${familyId}`}
+                    valueReference: { reference: `Group/${familyId}` }
                 },
                 {
                     url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/is-proband",

@@ -6,7 +6,7 @@
   "scripts": {
     "start:fhir": "ts-node src/fhir.ts",
     "start:elastic": "ts-node src/elastic.ts",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint --fix . --ext .ts",
     "test": "mocha -r ts-node/register test/**/*.ts"
   },
   "author": "",

@@ -47,7 +47,7 @@ export class PatientParser extends Parser<Patient> {
                 },
                 {
                     url: FAMILY_ID_EXTENSION,
-                    valueReference: {reference: `Group/${familyId}`}
+                    valueReference: { reference: `Group/${familyId}` }
                 },
                 {
                     url: "http://fhir.cqgc.ferlab.bio/StructureDefinition/is-proband",

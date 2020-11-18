@@ -374,7 +374,7 @@ export const FAKE_PRACTITIONER_ROLE: PractitionerRole = {
         },
         {
             system: "phone",
-            value: faker.random.number({min: 1000, max: 5000}).toString(),
+            value: faker.random.number({ min: 1000, max: 5000 }).toString(),
             use: "work",
             rank: faker.random.number(5),
         },

@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 import { GoogleSheetLoader } from "./loader/GoogleSheetLoader";
 import { AppLogger, initLoggers } from './log/Logger';
-import { ELASTIC_SEARCH_HOST} from './data/Constants';
+import { ELASTIC_SEARCH_HOST } from './data/Constants';
 import { ElasticSearch } from './network/ElasticSearch';
 
 const start = async () => {

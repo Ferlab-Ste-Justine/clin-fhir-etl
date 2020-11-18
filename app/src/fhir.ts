@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
-import {GoogleSheetLoader} from "./loader/GoogleSheetLoader";
-import {Network} from "./network/Network";
+import { GoogleSheetLoader } from "./loader/GoogleSheetLoader";
+import { Network } from "./network/Network";
 import { AppLogger, initLoggers } from './log/Logger';
 import { FHIR_SERVER_HOST } from './data/Constants';
 
